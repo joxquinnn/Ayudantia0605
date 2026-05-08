@@ -14,5 +14,5 @@ public class Task {
     private String titulo;
     private String prioridad;
     private String fechaLimite;
-    private boolean completada;
+    private Boolean completada;
 }
