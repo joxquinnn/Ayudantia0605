@@ -1,4 +1,4 @@
-package com.EjercicioAyudantia.ISoft.services;
+package com.EjercicioAyudantia.ISoft.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,19 @@ import com.EjercicioAyudantia.ISoft.model.Task;
 
 @Service
 public class TaskService {
+    private final List<Task> taskList = new ArrayList<>();
 
-    private final List<Task> tasks = new ArrayList<>();
+    public Task generarTarea(Task task){
+        int idInt = taskList.size() + 1;
+        Long id = Long.valueOf(idInt);
+        task.setId(id);
+        task.setCompletada(false);
+        taskList.add(task);
+        return task;
+    }
 
     public List<Task> getTasks(String prioridad, String titulo, String fechalimite){
-        return tasks.stream()
+        return taskList.stream()
             .filter(t -> prioridad == null || t.getPrioridad().equalsIgnoreCase(prioridad))
             .filter(t -> titulo == null || t.getTitulo().toLowerCase().contains(titulo.toLowerCase()))
             .filter(t -> fechalimite == null || t.getFechaLimite().equals(fechalimite))
@@ -22,4 +30,3 @@ public class TaskService {
             .collect(Collectors.toList());
     }
 }
-

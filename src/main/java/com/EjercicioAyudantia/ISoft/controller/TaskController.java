@@ -5,13 +5,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.EjercicioAyudantia.ISoft.model.Task;
-import com.EjercicioAyudantia.ISoft.services.TaskService;
+import com.EjercicioAyudantia.ISoft.service.TaskService;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -25,8 +27,9 @@ public class TaskController {
     }
 
     @PostMapping()
-    public Optional<Task> postNewTask() {
-        return null;
+    public ResponseEntity<Task> postNewTask(@RequestBody Task task) {
+        Task saveTask = taskService.generarTarea(task);  
+        return new ResponseEntity<>(saveTask, HttpStatus.CREATED);
     }
 
     @GetMapping
